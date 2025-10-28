@@ -1,0 +1,81 @@
+# Python (for automation)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+env/
+venv/
+*.sqlite3
+*.log
+
+# Node (for frontend)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+dist/
+build/
+.next/
+out/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# General editor stuff
+.vscode/
+.idea/
+*.swp
+
+# Git
+*.orig
+
+# Optional: If you're using supabase locally
+.supabase/
+
+# Optional: If you're using docker
+docker-compose.override.yml
+*.pid
+
+
+node_modules/
+blockchain/node_modules/
+
+
+# Contract Deployment (Hardhat)
+blockchain/node_modules/
+blockchain/.env
+blockchain/artifacts/
+blockchain/cache/
+blockchain/typechain/
+blockchain/coverage/
+blockchain/hardhat.log
+blockchain/node_modules
+blockchain/node_modules/
+
+
+automation/myenv 
+automation/.env 
+
+
+.env 
+
+
+
+frontend/node_modules/
+frontend/.env.local
+frontend/.next/
+frontend/out/
+frontend/.vercel/
+frontend/.vercel_build_output/
+frontend/.turbo/
+frontend/.pnp.cjs
+frontend/package-lock.json
+frontend/.env
