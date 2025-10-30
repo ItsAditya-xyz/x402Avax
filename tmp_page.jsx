@@ -327,7 +327,7 @@ const doFetch = async (sessionOverride = null, opts = { fromPoll: false }) => {
           This endpoint is gated by <span className="font-mono">x402</span>. Complete the payment to unlock.
         </p>
 
-        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm mb-4 break-all">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm mb-4">
           <div className="flex items-center justify-between">
             <span className="text-slate-600">Amount</span>
          <span className="font-medium text-slate-900">{prettyAmount} ${tokenName}</span>

@@ -39,8 +39,9 @@ export default function Page() {
             </div>
           </Link>
         </div>
-
-       
+        <div className="mt-8 text-sm text-slate-600 my-10">
+          Need implementation details? Read the <a href="/docs" className="text-emerald-700 hover:underline">x402 docs</a>.
+        </div>
       </main>
     </div>
   );
