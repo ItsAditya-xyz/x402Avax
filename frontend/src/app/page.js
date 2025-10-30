@@ -40,7 +40,7 @@ export default function Page() {
           </Link>
         </div>
         <div className="mt-8 text-sm text-slate-600 my-10">
-          Need implementation details? Read the <a href="/docs" className="text-emerald-700 hover:underline">x402 docs</a>.
+          Need implementation details? Read the <Link href="/docs" className="text-emerald-700 hover:underline">x402 docs</Link>.
         </div>
       </main>
     </div>
