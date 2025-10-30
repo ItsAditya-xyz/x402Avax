@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, memo } from "react";
 import { Send, RotateCcw, Square } from "lucide-react";
-import gladiusImage from "../../public/icons/arena.svg";
+import gladiusImage from "../../../public/icons/arena.svg";
 import FormBuilder from "../../../components/formBuilder";
 import Navbar from "../../../components/navbar";
 
