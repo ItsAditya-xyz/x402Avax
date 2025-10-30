@@ -14,9 +14,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "COOK",
-  description: "Bet on Post's virality!",
-   manifest: "/manifest.json"
+  title: {
+    default: "Arena x402",
+    template: "%s · Arena x402",
+  },
+  description: "Micropayment-gated APIs via HTTP 402 on Avalanche (AVAX, ARENA, GLADIUS).",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icons/arena.svg",
+    shortcut: "/icons/arena.svg",
+    apple: "/icons/arena.svg",
+  },
+  openGraph: {
+    title: "Arena x402",
+    description: "Micropayment-gated APIs via HTTP 402 on Avalanche.",
+    images: [
+      { url: "/assets/PAYMENT_REQUIRED.png" }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Arena x402",
+    description: "Micropayment-gated APIs via HTTP 402 on Avalanche.",
+    images: ["assets/PAYMENT_REQUIRED.png"],
+  },
 };
 
 export default async function RootLayout({ children }) {
