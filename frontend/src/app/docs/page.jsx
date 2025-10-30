@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "../../../components/navbar";
-
+import Link from "next/link";
 export default function DocsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-slate-100">
