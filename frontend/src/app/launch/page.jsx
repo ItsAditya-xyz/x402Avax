@@ -10,13 +10,48 @@ export default function LaunchPage() {
   const [error, setError] = useState(null);
   const [name, setName] = useState("");
   const [symbol, setSymbol] = useState("");
+  const [picture, setPicture] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
+  const [uploadInfo, setUploadInfo] = useState(null);
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+    setUploadInfo(null);
+
+    try {
+      const data = new FormData();
+      data.append("file", file, file.name);
+
+      const res = await fetch("/api/upload-image", {
+        method: "POST",
+        body: data,
+      });
+
+      const json = await res.json();
+      if (!res.ok || !json?.ok) {
+        throw new Error(json?.error || "Upload failed");
+      }
+
+      setPicture(json.slug || "");
+      setUploadInfo(json);
+    } catch (e) {
+      setUploadError(e?.message || "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleCreateToken = async () => {
     setLoading(true);
     setError(null);
     setResult(null);
     try {
-      const params = new URLSearchParams({ name, symbol });
+      const params = new URLSearchParams({ name, symbol, picture });
       const res = await fetch(`/api/create-token?${params.toString()}`, {
         method: "GET",
       });
@@ -77,10 +112,39 @@ export default function LaunchPage() {
             </div>
           </div>
 
+          <div className="mt-3 text-slate-800">
+            <label className="block text-xs font-medium text-slate-700 mb-1">Upload image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              className="w-full rounded-lg border border-dashed border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <p className="mt-1 text-[11px] text-slate-500">
+              Uploading generates the StarsArena slug automatically.
+            </p>
+            {uploading && (
+              <p className="mt-2 text-sm text-slate-600">Uploading image…</p>
+            )}
+            {uploadError && (
+              <p className="mt-2 text-sm text-red-600">{uploadError}</p>
+            )}
+            {uploadInfo?.url && (
+              <div className="mt-3">
+                <p className="text-xs text-slate-500 mb-1">Preview</p>
+                <img
+                  src={uploadInfo.url}
+                  alt="Token"
+                  className="w-24 h-24 rounded-lg border border-slate-200 object-cover"
+                />
+              </div>
+            )}
+          </div>
+
           <div className="mt-4">
             <button
               onClick={handleCreateToken}
-              disabled={loading || !name || !symbol}
+              disabled={loading || !name || !symbol || !picture}
               className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm hover:bg-indigo-700 disabled:opacity-60"
             >
               {loading ? "Creating..." : "Create token"}
