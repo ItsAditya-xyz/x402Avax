@@ -42,6 +42,18 @@ export async function GET(req, ctx) {
     return NextResponse.json({ code: "not_found", data: {} }, { status: 404 });
 
   const amountWeiStr = String(api.amount_wei);
+  const ONLY_ONCE_CONSUMED = "one_shot_consumed";
+
+  if (api.onlyonce && api.usage_model === ONLY_ONCE_CONSUMED) {
+    return NextResponse.json(
+      {
+        code: "only_once_consumed",
+        data: {},
+        message: "This API has already been used once.",
+      },
+      { status: 410 }
+    );
+  }
 
   // 2) Read session from header
   const sessionIdHex =
@@ -178,6 +190,23 @@ export async function GET(req, ctx) {
       upstream = { image_url: api.api_url };
     } else {
       upstream = await response.text();
+    }
+
+    if (api.onlyonce) {
+      const { error: consumeErr } = await supabase
+        .from("apis_402")
+        .update({
+          usage_model: ONLY_ONCE_CONSUMED,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", api.id)
+        .eq("usage_model", api.usage_model);
+
+      if (consumeErr) {
+        console.error("failed to mark only-once api consumed", consumeErr);
+      } else {
+        api.usage_model = ONLY_ONCE_CONSUMED;
+      }
     }
 
     return ok({

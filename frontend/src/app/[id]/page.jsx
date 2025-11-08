@@ -163,7 +163,16 @@ const doFetch = async (sessionOverride = null, opts = { fromPoll: false }) => {
     // Other 4xx/5xx
     if (allowDowngrade) {
       setView("error");
-      setErrMsg(json?.error || json?.code || `HTTP ${res.status}`);
+      setErrMsg(
+        json?.message ||
+          json?.error ||
+          (json?.code === "only_once_consumed"
+            ? "This launch endpoint has already been triggered once."
+            : json?.code || `HTTP ${res.status}`)
+      );
+      if (json?.code === "only_once_consumed") {
+        setPayInfo(null);
+      }
     }
   } catch (e) {
     if (allowDowngrade) {
